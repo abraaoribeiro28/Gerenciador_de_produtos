@@ -9,15 +9,15 @@ use App\Http\Controllers\ArchiveController;
 //     return view('admin.layout.dashboard');
 // })->middleware('auth')->name('admin');
 Route::get('admin', function(){
-    return view('home.index');
+    return redirect('/admin/dashboard');
 })->middleware('auth')->name('admin');
 
 Route::get('/', function(){
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return redirect('/admin');
+Route::middleware(['auth:sanctum', 'verified'])->get('/admin/dashboard', function () {
+    return view('admin.layout.dashboard');
 })->name('dashboard');
 
 

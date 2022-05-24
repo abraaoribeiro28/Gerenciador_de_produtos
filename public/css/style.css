@@ -9,6 +9,13 @@ html, body{
     height: 100%;
 }
 
+
+#sidebar ion-icon{
+    font-size: 25px
+}
+
+
+
 /*--- HOME ---*/
 .masthead {
     min-height: 100vh;
