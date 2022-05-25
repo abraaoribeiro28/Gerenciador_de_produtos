@@ -13,9 +13,9 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         if($request->id == null){
-            $products = Product::paginate(10);
+            $products = Product::paginate(15);
         }else{
-            $products = Product::where('category_id', $request->id)->paginate(10);
+            $products = Product::where('category_id', $request->id)->paginate(15);
         }
         return view('admin.products.index', compact('products', 'categories'));
     }

@@ -5,5 +5,9 @@ module.exports = {
     theme: {
       extend: {},
     },
-    plugins: [],
+    plugins: [
+      require('tailwindcss-plugins/pagination')({
+          /* Customizations here... */
+      }),
+  ],
   }

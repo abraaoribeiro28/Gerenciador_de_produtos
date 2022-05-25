@@ -3,52 +3,46 @@
 @section('title', 'Produtos- Gerenciador')
 
 @section('content')
-
-
-
-<div class="w-full">
-
-  <div class="bg-white p-5 border-b">
+<div class="w-full overflow-hidden">
+  <div class="bg-white p-5 border-b flex justify-between items-center">
     <h1 class="text-gray-500 text-2xl">Listagem de produtos</h1>
+    <a href="{{route('products.create')}}" class="bg-green-600 hover:bg-green-700 text-sm text-white font-bold py-2 px-3 rounded flex items-center">
+      <ion-icon name="add-circle"></ion-icon>
+      <span class="ml-1">Adicionar produto</span>
+    </a>
   </div>
-
-  
-
   <div class="flex flex-col w-full p-5">
-
-
       <div class="bg-white p-5 border-b mb-3">
         <form action="#">
-          <div class="flex w-full">
-            <div class="xl:w-4/12">
+          <div class="grid grid-cols-4 gap-0">
+            <div class="xl:col-span-1 md:col-span-2 col-span-4 px-1">
               <label for="product" class="text-sm font-medium text-gray-700">Produto</label>
               <input type="text" name="product" id="product" class="px-3 py-2 border mt-1 block w-full sm:text-sm border-gray-300 rounded-md text-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Digite o nome do produto">
             </div>
 
-            <div class="xl:w-2/12">
+            <div class="xl:col-span-1 md:col-span-2 col-span-4 px-1 md:mt-0 sm:mt-2">
               <label for="category" class=" text-sm font-medium text-gray-700">Categoria</label>
-              <select id="category" name="category" class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                <option>United States</option>
-                <option>Canada</option>
-                <option>Mexico</option>
+              <select id="category" name="category" class="mt-1 block w-full px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" style="padding-top: 0.55rem; padding-bottom: 0.55rem;">
+                <option value="">Selecione uma categoria</option>
+                @foreach ($categories as $category)
+                  <option value="{{$category->id}}">{{$category->category}}</option>
+                @endforeach
               </select>
             </div>
 
-            <div class="xl:w-2/12">
-              <label for="product" class="text-sm font-medium text-gray-700">Produto</label>
-              <input type="text" name="product" id="product" class="px-3 py-2 border mt-1 block w-full sm:text-sm border-gray-300 rounded-md text-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            <div class="xl:col-span-1 md:col-span-2 col-span-4 px-1 xl:mt-0 sm:mt-2">
+              <label for="price-min" class="text-sm font-medium text-gray-700">Preço mínimo</label>
+              <input type="text" name="price-min" id="price-min" class="px-3 py-2 border mt-1 block w-full sm:text-sm border-gray-300 rounded-md text-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Digite o preço mínimo do produto">
             </div>
-
-            <div class="xl:w-2/12">
-              <label for="product" class="text-sm font-medium text-gray-700">Produto</label>
-              <input type="text" name="product" id="product" class="px-3 py-2 border mt-1 block w-full sm:text-sm border-gray-300 rounded-md text-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            <div class="xl:col-span-1 md:col-span-2 col-span-4 px-1 xl:mt-0 sm:mt-2">
+              <label for="price-max" class="text-sm font-medium text-gray-700">Preço máximo</label>
+              <input type="text" name="price-max" id="price-max" class="px-3 py-2 border mt-1 block w-full sm:text-sm border-gray-300 rounded-md text-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Digite o preço máximo do produto">
             </div>
-
           </div>
         </form>
       </div>
-
-      <div class="w-full">
+      
+      <div class="w-full overflow-auto" style="max-height: 665px;">
           <div class="border-b border-gray-200 shadow">
               <table class="divide-y divide-gray-300 w-full">
                   <thead class="bg-gray-50">
@@ -88,11 +82,11 @@
                               </a>
                           </td>
                           <td class="px-6 py-4 text-sm text-gray-500">
-                                @foreach ($categories as $category)
-                                  @if ($category->id == $product->category_id)
-                                    {{$category->category}}
-                                  @endif
-                                @endforeach
+                            @foreach ($categories as $category)
+                              @if ($category->id == $product->category_id)
+                                {{$category->category}}
+                              @endif
+                            @endforeach
                           </td>
                           <td class="px-6 py-4 text-sm text-gray-500">
                             {{$product->price}}
@@ -133,10 +127,9 @@
                   </tbody>
               </table>
           </div>
+          
       </div>
+      {{ $products->links() }}
   </div>
 </div>
-
-{{-- @include('layouts.modal-delete') --}}
-
 @endsection
