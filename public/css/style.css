@@ -379,7 +379,7 @@ html, body{
 .msg{
     position: fixed;
     right: 0;
-    top: 30px;
+    top: 100px;
     padding: 6px 30px;
     border-radius: 20px 0 0 20px;
     color: #fff;

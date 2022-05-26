@@ -6,8 +6,8 @@ module.exports = {
       extend: {},
     },
     plugins: [
-      require('tailwindcss-plugins/pagination')({
-          /* Customizations here... */
-      }),
+      // require('tailwindcss-plugins/pagination')({
+      //     /* Customizations here... */
+      // }),
   ],
   }

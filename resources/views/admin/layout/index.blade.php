@@ -4,45 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {{-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> --}}
-    {{-- <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"> --}}
-
-    {{-- <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> --}}
-
-    <link rel="stylesheet" href="/css/style.css">
     <title>@yield('title')</title>
-    {{-- <link rel="sortcut icon" href="https://image.flaticon.com/icons/png/512/5073/5073321.png" type="image/x-icon" /> --}}
-    {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script> --}}
-    
-    {{-- <script src="/js/script.js"></script> --}}
-
-    {{-- <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> --}}
-    {{-- <link rel="stylesheet" href="/css/sidebar.css"> --}}
+    {{-- <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"> --}}
+    {{-- <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="{{url('css/app.css')}}">
+    <script src="{{url('js/app.js')}}"></script>
 </head>
 <body>
-
-    <div class="bg-gray-100 h-full w-full flex">
+    <div class="bg-gray-100 h-screen w-full flex">
             @include('admin.layout.sidebar')
             @yield('content')
     </div>
 
-    {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
-
-    <script src="/js/sidebar/jquery.min.js"></script>
-    <script src="/js/sidebar/popper.js"></script>
-    <script src="/js/sidebar/bootstrap.min.js"></script> --}}
-    <script src="/maskMoney/src/jquery.maskMoney.js" type="text/javascript"></script>
     <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
-    <script>
-        function menu_sidebar(){
-            console.log('a');
-        }
-    </script>
+    {{-- <script src="/js/script.js"></script> --}}
+    
 </body>
 </html>
