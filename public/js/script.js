@@ -12,7 +12,7 @@ function fecharModal(){
 
 //Fechar alertas de ações realizadas
 function fecharMsg(){
-    document.querySelector('.msg').style.display = 'none';
+    document.querySelector('#static-example').style.display = 'none';
 }
 
 // Archive

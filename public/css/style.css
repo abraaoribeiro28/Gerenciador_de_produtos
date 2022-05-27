@@ -376,6 +376,12 @@ html, body{
 }
 
 /* msg */
+
+#static-example{
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .msg{
     position: fixed;
     right: 0;

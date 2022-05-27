@@ -39,7 +39,7 @@ class ProductController extends Controller
             $product->archive_id = $request->archive;
         }
         $product->save();
-        return redirect(route('products'))->with('msg', 'Produto criado com sucesso!');
+        return redirect(route('products'))->with('msg', 'Seu produto foi criado!');
     }
 
     public function edit($id){
