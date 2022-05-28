@@ -9,7 +9,7 @@
     {{-- <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet"> --}}
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="{{url('css/app.css')}}">
-    
+    <script src="{{url('js/app.js')}}"></script>
 </head>
 <body>
     <div class="bg-gray-100 h-screen w-full flex">
@@ -19,6 +19,6 @@
 
     <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
     <script src="/js/script.js"></script>
-    <script src="{{url('js/app.js')}}"></script>
+    
 </body>
 </html>

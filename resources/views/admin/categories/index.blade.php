@@ -133,148 +133,111 @@
     </a>
   </div>
   <div class="flex flex-col w-full p-5">
-    <div class="bg-white p-5 border-b mb-3">
-      @forelse ($categories as $category)
-        @if ($category->category_father == 0)
-          <div class="box">
-            <div class="flex justify-between p-2 border">
-              <div class="title">
-                <div class="circle"></div>
-                 <span class="m-0">{{$category->category}}</span>
-                  @foreach ($products as $product)
-                    @if ($product->category_id == $category->id)
-                      <script>{{$quantidade++}}</script>
-                    @endif
-                  @endforeach
-                  <span class="inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded" style="font-size: 12px">{{$quantidade}}</span>
-                  <script>{{$quantidade=0}}</script>
-              </div>
-              <div class="option">
-                {{-- <div class="dropdown">
-                  <button class="btn" type="button" id="dropdown-category" data-toggle="dropdown">
-                    <ion-icon name="more"></ion-icon>
+    <table class="divide-y divide-gray-300 w-full">
+      <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-2 text-xs text-gray-500">
+              ID
+            </th>
+            <th class="px-6 py-2 text-xs text-gray-500">
+              Categoria
+            </th>
+            <th class="px-6 py-2 text-xs text-gray-500">
+              Qtd produtos
+            </th>
+            <th class="px-6 py-2 text-xs text-gray-500">
+                Editar
+            </th>
+            <th class="px-6 py-2 text-xs text-gray-500">
+                Deletar
+            </th>
+          </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-300 text-center">
+        @forelse ($categories as $category)
+          @if ($category->category_father == 0)
+            <tr class="whitespace-nowrap">
+              <td class="px-6 py-4 text-sm text-gray-500">
+                {{$category->id}}
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-500">
+                {{$category->category}}
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-900">
+                <span class="inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded" style="font-size: 12px">
+                  {{$products->where('category_id', $category->id)->count()}}
+                </span>
+              </td>
+              <td class="px-6 py-4">
+                <a href="{{route('category.edit', $category->id)}}" class="inline-block">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-400" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                </a>
+              </td>
+              <td class="px-6 py-4">
+                <form action="{{route('category.destroy', $category->id)}}" method="post">
+                  @csrf
+                  @method('delete')
+                  <button type="submit" onclick="confirm(event,'delete_'+{{$category->id}})" id="delete_{{$category->id}}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-400" fill="none"
+                          viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
                   </button>
-                  <div class="dropdown-menu actions" aria-labelledby="dropdown-category">
-                    <a class="dropdown-item" href="{{route('category.show', $category->id)}}">
-                      <i class="fa fa-eye" style="color: rgb(40, 167, 69, 0.9);"></i>
-                      Visualizar
-                    </a>
-                    <a class="dropdown-item" href="{{route('category.edit', $category->id)}}">
-                      <i class="fa fa-pencil" style="color: rgb(248, 192, 51, 0.9);"></i>
-                      Editar
-                    </a>
-                    <button class="dropdown-item" onclick="exibirModal({{$category->id}})">
-                      <i class="fa fa-times" style="color: rgb(221, 61, 49, 0.9);"></i>
-                      Excluir
-                    </button>
-                  </div>
-                </div> --}}
-                <div class="flex justify-center">
-                  <div>
-                    <div class="dropdown relative">
-                      <button class="dropdown-toggle p-1 font-medium text-xs leading-tight rounded focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg active:text-white transition duration-150 ease-in-out flex items-center whitespace-nowrap" type="button" id="dropdownMenuButton1" style="font-size: 18px;" data-bs-toggle="dropdown" aria-expanded="false">
-                        <ion-icon name="more"></ion-icon>
-                      </button>
-                      <ul class="hidden dropdown-menu min-w-max absolute bg-white text-base z-50 float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 m-0 bg-clip-padding border-none" aria-labelledby="dropdownMenuButton1" style="transform: translateX(-76px);">
-                        <li>
-                          <a href="{{route('category.show', $category->id)}}" class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
-                            <ion-icon name="eye"></ion-icon>
-                            Visualizar
-                          </a>
-                        </li>
-                        <li>
-                          <a href="{{route('category.edit', $category->id)}}" class="dropdown-item text-left text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
-                            <ion-icon name="create"></ion-icon>
-                            Editar
-                          </a>
-                        </li>
-                        <li>
-                          <button class="dropdown-item text-sm text-left py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
-                            <ion-icon name="trash"></ion-icon>
-                            Excluir
-                          </button>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            @foreach ($categories as $subcategory)
+                </form>
+              </td>
+            </tr>
+              @foreach ($categories as $subcategory)
                 @if ($subcategory->category_father == $category->id)
-                <div class="ml-3 flex justify-between p-2 border">
-                  <div class="title">
-                    <div class="circle"></div>
-                    <span class="m-0">{{$subcategory->category}}</span>
-                    @foreach ($products as $product)
-                      @if ($product->category_id == $subcategory->id)
-                          <script>{{$quantidade++}}</script>
-                      @endif
-                    @endforeach
-                    <span class="inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded" style="font-size: 12px">{{$quantidade}}</span>
-                    <script>{{$quantidade=0}}</script>
-                  </div>
-                  <div class="option">
-                    {{-- <div class="dropdown">
-                      <button class="btn" type="button" id="dropdown-category" data-toggle="dropdown">
-                        <i class="fa fa-ellipsis-v"></i>
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdown-category">
-                        <a class="dropdown-item" href="{{route('category.show', $subcategory->id)}}">
-                          <i class="fa fa-eye" style="color: rgb(40, 167, 69, 0.9);"></i>
-                          Visualizar
-                        </a>
-                        <a class="dropdown-item" href="{{route('category.edit', $subcategory->id)}}">
-                          <i class="fa fa-pencil" style="color: rgb(248, 192, 51, 0.9);"></i>
-                          Editar
-                        </a>
-                        <button class="dropdown-item" onclick="exibirModal({{$subcategory->id}})">
-                          <i class="fa fa-times" style="color: rgb(221, 61, 49, 0.9);"></i>
-                          Excluir
+                  <tr class="whitespace-nowrap bg-gray-50">
+                    <td class="px-6 py-4 text-sm text-gray-500">
+                      {{$subcategory->id}}
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-500">
+                      {{$subcategory->category}}
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-900">
+                      <span class="inline-block py-1 px-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded" style="font-size: 12px">
+                        {{$products->where('category_id', $subcategory->id)->count()}}
+                      </span>
+                    </td>
+                    <td class="px-6 py-4">
+                      <a href="{{route('category.edit', $subcategory->id)}}" class="inline-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-400" fill="none"
+                              viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                          </svg>
+                      </a>
+                    </td>
+                    <td class="px-6 py-4">
+                      <form action="{{route('category.destroy', $subcategory->id)}}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" onclick="confirm(event,'delete_'+{{$subcategory->id}})" id="delete_{{$subcategory->id}}">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-400" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
                         </button>
-                      </div>
-                    </div> --}}
-                    <div class="flex justify-center">
-                      <div>
-                        <div class="dropdown relative">
-                          <button class="dropdown-toggle p-1 font-medium text-xs leading-tight rounded focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg active:text-white transition duration-150 ease-in-out flex items-center whitespace-nowrap" type="button" id="dropdownMenuButton1" style="font-size: 18px;" data-bs-toggle="dropdown" aria-expanded="false">
-                            <ion-icon name="more"></ion-icon>
-                          </button>
-                          <ul class="hidden dropdown-menu min-w-max absolute bg-white text-base z-50 float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 m-0 bg-clip-padding border-none" aria-labelledby="dropdownMenuButton1" style="transform: translateX(-76px);">
-                            <li>
-                              <a href="{{route('category.show', $subcategory->id)}}" class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
-                                <ion-icon name="eye"></ion-icon>
-                                Visualizar
-                              </a>
-                            </li>
-                            <li>
-                              <a href="{{route('category.edit', $subcategory->id)}}" class="dropdown-item text-left text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
-                                <ion-icon name="create"></ion-icon>
-                                Editar
-                              </a>
-                            </li>
-                            <li>
-                              <button class="dropdown-item text-sm text-left py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">
-                                <ion-icon name="trash"></ion-icon>
-                                Excluir
-                              </button>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                      </form>
+                    </td>
+                  </tr>
                 @endif
-            @endforeach
-          </div>
-        @endif
-      @empty
-        <div class="box">
-          <h5 class="m-0">Nenhuma categoria cadastrada</h5>
-        </div>
-      @endforelse
-    </div>
+              @endforeach
+            @endif
+          @empty
+          <tr class="whitespace-nowrap">
+            <td colspan="7" class="px-6 py-4 text-sm text-center text-gray-500">Lista de produtos vazia</td>
+          </tr>
+        @endforelse
+      </tbody>
+    </table>
   </div>
 </div>
 
@@ -304,7 +267,7 @@
   </div>
 </div> --}}
 
-<script>
+{{-- <script>
   const modal = document.querySelector('.modal');
   function exibirModal(id){
     modal.style.display = 'block';
@@ -318,6 +281,51 @@
 
   function fecharMsg(){
     const msg = document.querySelector('.msg').style.display = 'none';
+  }
+</script> --}}
+
+
+<script defer>
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: 'bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mx-1 rounded focus:outline-none',
+      cancelButton: 'bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mx-1 rounded focus:outline-none'
+    },
+    buttonsStyling: false
+  });
+  function confirm(event, id_button){
+    event.preventDefault();
+
+    let btn = document.querySelector(`#${id_button}`);
+
+    swalWithBootstrapButtons.fire({
+      title: 'Tem certeza?',
+      text: "Você não será capaz de reverter isso!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sim, excluir!',
+      cancelButtonText: 'Não, cancelar!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // swalWithBootstrapButtons.fire(
+        //   'Excluído!',
+        //   'Seu registro foi excluído.',
+        //   'success'
+        // )
+        btn.onclick = () => true;
+        btn.click();
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelado',
+          'Seu registro está seguro :)',
+          'error'
+        )
+      }
+    })
   }
 </script>
 @endsection
